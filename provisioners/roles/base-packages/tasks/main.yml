@@ -1,0 +1,41 @@
+---
+  ##############################################################
+  # ESSENTIAL INSTALLS -- INCLUDES ALL BASE PACKAGES           #
+  ##############################################################
+  - name: Install Standard Packages
+    apt:
+      force_apt_get: yes
+      update_cache: yes
+      state: present
+      name: "{{ item }}"
+    loop: "{{ packages }}"
+
+  ##############################################################
+  # DOCKER INSTALLATION -- Used for DVWA and Hackazon          #
+  ##############################################################
+  - name: Remove Old Docker Packages (just in case)
+    apt:
+      force_apt_get: yes
+      name: "{{ item }}"
+      state: absent
+      purge: yes
+    loop: "{{ remove }}"
+
+  - name: Add Docker GPG apt Key
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+
+  - name: Add Docker Repository
+    apt_repository:
+      repo: deb https://download.docker.com/linux/ubuntu bionic stable
+      state: present
+
+  - name: Update apt and install docker-ce
+    apt: update_cache=yes name=docker-ce state=latest
+
+  - name: clean up apt-get
+    apt:
+      force_apt_get: yes
+      autoclean: yes
+      autoremove: yes

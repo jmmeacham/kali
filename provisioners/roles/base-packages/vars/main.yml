@@ -1,0 +1,24 @@
+---
+packages:
+  - anacron
+  - git
+  - vim
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - gnupg-agent
+  - software-properties-common
+  - apache2
+  - unzip
+  - tar
+  - cifs-utils
+  - traceroute
+  - python3-pip
+
+remove:
+  - docker
+  - docker-engine
+  - docker.io
+  - containerd
+  - runc
+  - nginx
